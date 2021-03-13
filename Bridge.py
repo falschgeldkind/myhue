@@ -3,7 +3,6 @@ import requests
 
 headers = {'content-type': 'application/json'}
 
-
 class Bridge():
     def __init__(self, bridge_ip, username):
         self.ip = bridge_ip

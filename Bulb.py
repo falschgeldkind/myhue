@@ -2,17 +2,6 @@ import requests
 import json
 
 class Bulb:
-    '''    on = bool
-    bri = int
-    hue = int
-    sat = int
-    effect = str
-    alert = str
-    bri_int = int
-    hue_inc = int
-    sat_inc = int
-    '''
-
 
     def __init__(self,url):
         self.url = url
@@ -33,9 +22,6 @@ class Bulb:
     def update_and_clear(self):
         self.update()
         self.clear_payload()
-
-    '''def set_state(self,on):
-'''
 
     def turn_off(self):
         self.payload.update({"on":False})

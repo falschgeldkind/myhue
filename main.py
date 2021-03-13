@@ -1,9 +1,6 @@
 import time
-
 import Bridge
 import json
-import requests
-import re
 import schedule
 
 from Bulb import Bulb
@@ -49,10 +46,7 @@ class Control:
         while(True):
             self.s.run_pending()
             self.s.run_pending()
-
             time.sleep(1)
-
-
 
 if __name__ == '__main__':
     control = Control()
