@@ -6,6 +6,7 @@ import time
 
 import requests
 import json
+import random
 
 bridge_ip = "192.168.2.108"
 bridge_username = "UZNT4nJfPTh6BqQILPw8i8qFvB6hs-gOS21WeSCK"
@@ -20,56 +21,89 @@ headers = {'content-type': 'application/json'}
 #        print(r.json())
 
 class Lights():
-    def get_lights(self):
+    def __init__(self, id):
+        self.id = str(id)
+
+    p = {}
+    def add_to_payload(self,payload):
+        self.p.update(payload)
+
+    def get_lights():
         r = requests.get(base_url+"lights",headers=headers)
         response = r.json()
         bulb_count = len(response)
+        lights = []
         for x in range(1,bulb_count+1):
             print(response[str(x)])
+            lights.append(Lights(str(x)))
+        return lights
 
-    def turn_off(self,bulb):
+    def turn_off(self):
         payload = {"on":False}
-        self.api_put(bulb,payload)
+        self.add_to_payload(payload)
 
-    def turn_on(self,bulb):
+    def turn_on(self):
         payload = {"on":True}
-        self.api_put(bulb,payload)
+        self.add_to_payload(payload)
 
-    def set_brightnes(self,bulb,brightness):
+    def set_brightnes(self,brightness):
         payload = {"bri":brightness}
-        self.api_put(bulb,payload)
+        self.add_to_payload(payload)
 
-    def set_hue(self,bulb,hue):
+    def set_hue(self,hue):
         payload = {"hue":hue}
-        self.api_put(bulb,payload)
+        self.add_to_payload(payload)
 
-    def set_saturation(self,bulb,sat):
+    def set_saturation(self,sat):
         payload = {"sat":sat}
-        self.api_put(bulb,payload)
+        self.add_to_payload(payload)
 
-    def api_put(bulb,payload):
-        r = requests.put(base_url+"lights/"+bulb+"/state",data=json.dumps(payload),headers=headers)
+    def set_hue_inc(self,hue_inc):
+        payload = {"hue_inc":hue_inc}
+        self.add_to_payload(payload)
+
+    def set_saturation_inc(self,sat_inc):
+        payload = {"sat_inc":sat_inc}
+        self.add_to_payload(payload)
+
+    def set_brightnes_inc(self,bri_inc):
+        payload = {"bri_inc":bri_inc}
+        self.add_to_payload(payload)
+
+    def set_transition_time(self, ttime):
+        payload = {"transitiontime":ttime}
+        self.add_to_payload(payload)
+
+    def set_effect(self, effect):
+        payload = {"effect":effect}
+        self.add_to_payload(payload)
+
+    def set_alert(self, alert):
+        payload = {"alert":alert}
+        self.add_to_payload(payload)
+
+
+
+    def update(self):
+        print(self.p)
+        r = requests.put(base_url+"lights/"+self.id+"/state",data=json.dumps(self.p),headers=headers)
         print(r.json())
+        self.p = {}
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    l = Lights
-    l.get_lights()
-#    l.turn_off(l,"1")
-#    l.get_lights(l)
-#    time.sleep(1)
-#    l.turn_on(l,"1")
-#    time.sleep(2)
-#    l.set_brightnes(l,"1",254)
-#    l.set_brightnes(l,"2",254)
-#    for b in range(255):
-#        l.set_saturation(l,"1",b)
+    lights = Lights.get_lights()
+    for l in lights:
+        l.turn_off()
+        l.update()
 
-#    for h in range(4096):
-#        hue = h*16
-#        l.set_hue(l,"1",(hue+21845)%65536)
-#        l.set_hue(l,"2",hue)
+    #l1 = Lights("1")
+    #l2 = Lights("2")
+    #l1.turn_off()
+    #l2.turn_off()
+    #l1.update()
+    #l2.update()
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
