@@ -12,10 +12,11 @@ class Bulb:
     hue_inc = int
     sat_inc = int
     '''
-    payload = {}
+
 
     def __init__(self,url):
         self.url = url
+        self.payload = {}
 
     def update(self):
         print(self.payload)
@@ -25,51 +26,46 @@ class Bulb:
             headers={'content-type': 'application/json'}
         )
         print(r.json())
+
+    def clear_payload(self):
         self.payload.clear()
+
+    def update_and_clear(self):
+        self.update()
+        self.clear_payload()
 
     '''def set_state(self,on):
 '''
 
     def turn_off(self):
-        payload = {"on":False}
-        self.payload.update(payload)
+        self.payload.update({"on":False})
 
     def turn_on(self):
-        payload = {"on":True}
-        self.payload.update(payload)
+        self.payload.update({"on":True})
 
     def set_brightnes(self,brightness):
-        payload = {"bri":brightness}
-        self.payload.update(payload)
+        self.payload.update({"bri":brightness})
 
     def set_hue(self,hue):
-        payload = {"hue":hue}
-        self.payload.update(payload)
+        self.payload.update({"hue":hue})
 
     def set_saturation(self,sat):
-        payload = {"sat":sat}
-        self.payload.update(payload)
+        self.payload.update({"sat":sat})
 
     def set_hue_inc(self,hue_inc):
-        payload = {"hue_inc":hue_inc}
-        self.payload.update(payload)
+        self.payload.update({"hue_inc":hue_inc})
 
     def set_saturation_inc(self,sat_inc):
-        payload = {"sat_inc":sat_inc}
-        self.payload.update(payload)
+        self.payload.update({"sat_inc":sat_inc})
 
     def set_brightnes_inc(self,bri_inc):
-        payload = {"bri_inc":bri_inc}
-        self.payload.update(payload)
+        self.payload.update({"bri_inc":bri_inc})
 
     def set_transition_time(self, ttime):
-        payload = {"transitiontime":ttime}
-        self.payload.update(payload)
+        self.payload.update({"transitiontime":ttime})
 
     def set_effect(self, effect):
-        payload = {"effect":effect}
-        self.payload.update(payload)
+        self.payload.update({"effect":effect})
 
     def set_alert(self, alert):
-        payload = {"alert":alert}
-        self.payload.update(payload)
+        self.payload.update({"alert":alert})
