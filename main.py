@@ -2,9 +2,7 @@ import time
 import Bridge
 import json
 import schedule
-
-from Bulb import Bulb
-
+import Bulb
 
 class Control:
     s = schedule

@@ -2,7 +2,6 @@ import requests
 import json
 
 class Bulb:
-
     def __init__(self,url):
         self.url = url
         self.payload = {}
