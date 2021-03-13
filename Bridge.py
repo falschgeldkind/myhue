@@ -35,3 +35,6 @@ class Bridge():
             # print(response[str(r)])
             bulbs.append(Bulb.Bulb(self.get_base_url() + "lights/" + str(r) + "/"))
         return bulbs
+
+    def __str__(self):
+        return self.get_base_url()
